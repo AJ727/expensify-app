@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 
@@ -28,17 +28,26 @@ const HelpPage = () => (
     </div>
 );
 
+const NotFoundPage = () => (
+    <div>
+        404!
+    </div>
+);
+
 // path = where we want to show something
 // component = what we want to render, when we match the route
 // exact = because it doesn't look for exact matches inherently, it will serve up anything with "/"
+// <Switch> --> traverses inorder and stops when the correct path is found. If none is found it'll display
+// the last one which is the 404 page
 const routes = (
     <BrowserRouter>
-        <div>
+        <Switch>
             <Route path="/"  component={ExpenseDashboardPage} exact={true} />
             <Route path="/create" component={AddExpensePage} />
             <Route path="/edit" component={EditExpensePage} />
             <Route path="/help" component={HelpPage} />
-        </div>
+            <Route component={NotFoundPage} />
+        </Switch>
     </BrowserRouter>
 );
 
