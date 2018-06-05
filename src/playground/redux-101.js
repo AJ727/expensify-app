@@ -6,9 +6,13 @@ import {createStore} from 'redux';
 const store = createStore((state = { count: 0 }, action) => {
     switch(action.type) {
         case 'INCREMENT':
-            return {count: state.count + 1};
+            const incrementBy = typeof action.incrementBy === 'number' ? action.incrementBy : 1;
+            return {count: state.count + incrementBy};
         case 'DECREMENT':
-            return {count: state.count - 1};
+            const decrementBy = typeof action.decrementBy === 'number' ? action.decrementBy : 1;
+            return {count: state.count - decrementBy};
+        case 'SET':
+            return {count: action.count};
         case 'RESET':
             return {count: 0};
         default:
@@ -16,15 +20,20 @@ const store = createStore((state = { count: 0 }, action) => {
     }
 });
 
-// Returns current state object
-console.log(store.getState());
+// Runs whenever the state changes
+// Call unsubscribe to end it
+const unsubscribe = store.subscribe(() => {
+    console.log(store.getState());
+});
+
 
 // Actions - an object that gets sent to the store
 // walk, stop walking, work, stop_working <-- all actions that change a state
 
 // Increment the count
 store.dispatch({
-    type: 'INCREMENT'
+    type: 'INCREMENT',
+    incrementBy: 5
 });
 
 store.dispatch({
@@ -36,8 +45,11 @@ store.dispatch({
 });
 
 store.dispatch({
-    type: 'DECREMENT'
+    type: 'DECREMENT',
+    decrementBy: 20
 });
 
-
-console.log(store.getState());
+store.dispatch({
+    type: 'SET',
+    count: 101
+})
