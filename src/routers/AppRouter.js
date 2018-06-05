@@ -13,7 +13,7 @@ import NotFoundPage from '../components/NotFoundPage';
 // exact = because it doesn't look for exact matches inherently, it will serve up anything with "/"
 // <Switch> --> traverses from top to bottom and stops when the correct path is found. If none is found it'll display
 // the last one which is the 404 page
-
+// :id dynamically matches whatever comes after /edit/ such as /edit/44
 const AppRouter = () => (
     <BrowserRouter>
         <div>
@@ -21,7 +21,7 @@ const AppRouter = () => (
         <Switch>
             <Route path="/"  component={ExpenseDashboardPage} exact={true} />
             <Route path="/create" component={AddExpensePage} />
-            <Route path="/edit" component={EditExpensePage} />
+            <Route path="/edit/:id" component={EditExpensePage} />
             <Route path="/help" component={HelpPage} />
             <Route component={NotFoundPage} />
         </Switch>
