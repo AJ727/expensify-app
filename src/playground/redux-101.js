@@ -27,10 +27,12 @@ const setCount = ({ count }) => ({
     count
 });
 
-// Creates a store, expects a function as an argument
-// count is the default state object
-// action is second param
-const store = createStore((state = { count: 0 }, action) => {
+
+// Reducers
+// 1. Reducers are pure functions, the output is only determined by the input
+// 2. Never change state or action
+
+const countReducer = (state = { count: 0 }, action) => {
     switch(action.type) {
         case 'INCREMENT':
             return {count: state.count + action.incrementBy};
@@ -43,7 +45,12 @@ const store = createStore((state = { count: 0 }, action) => {
         default:
             return state;
     }
-});
+};
+
+// Creates a store, expects a function as an argument
+// count is the default state object
+// action is second param
+const store = createStore();
 
 // Runs whenever the state changes
 // Call unsubscribe to end it
