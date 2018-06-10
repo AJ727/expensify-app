@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
 import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import {addExpense, removeExpense, editExpense} from './actions/expenses';
@@ -18,12 +19,11 @@ const state = store.getState();
 const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
 console.log(visibleExpenses);    
 
-// const unsub = store.subscribe(() => {
-//     const state = store.getState();
-//     const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
-//     console.log(visibleExpenses);    
-// });
+// set store equal to where the store lives
+const jsx = (
+    <Provider store={store}>
+        <AppRouter />
+    </Provider>
+)
 
-// console.log(store.getState());
-
-ReactDOM.render(<AppRouter />, document.getElementById('app'));
+ReactDOM.render(jsx, document.getElementById('app'));
