@@ -3,16 +3,20 @@ import moment from 'moment';
 import {SingleDatePicker} from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 
-// For the functions, value is where it comes from, so it starts out as an empty string
-// Upon changing, the updater function is called, updating the state
 export default class ExpenseForm extends React.Component {
-    state = {
-        description: '',
-        note: '',
-        amount : '',
-        createdAt: moment(),
-        calendarFocused: false,
-        error: ''
+    // Make a constructor in order to pass props up
+    constructor(props) {
+        super(props);
+        
+        //
+        this.state = {
+            description: props.expense ? props.expense.description : '',
+            note: props.expense ? props.expense.note : '',
+            amount : props.expense ? (props.expense.amount/100).toString() : '',
+            createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
+            calendarFocused: false,
+            error: ''
+        }
     }
     onDescriptionChange = (e) => {
         // REMINDER: ({description}) is equivalent to returning this object --> description: description
@@ -57,6 +61,8 @@ export default class ExpenseForm extends React.Component {
             })
         }
     }
+    // For the functions, value is where it comes from, so it starts out as an empty string
+    // Upon changing, the updater function is called, updating the state
     render() {
         return (
             <div>
