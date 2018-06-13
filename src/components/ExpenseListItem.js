@@ -3,6 +3,7 @@ import ConnectedExpenseList from './ExpenseList';
 import {connect} from 'react-redux';
 import {removeExpense} from '../actions/expenses';
 
+// We grab the 5 props below using destructuring
 const ExpenseListItem = ({dispatch, id, description, amount, createdAt}) => (
     <div>
         <h2>{description}</h2>
