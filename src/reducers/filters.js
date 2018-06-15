@@ -1,7 +1,15 @@
+import moment from 'moment';
+
 // Filters Reducer
+// 'month' limits what gets show to 1 month only
 const filtersReducerDefaultState = {
-    text:'', sortBy:'date', startDate:undefined, endDate:undefined
+    text: '', 
+    sortBy: 'date', 
+    startDate: moment().startOf('month'), 
+    endDate: moment().endOf('month')
 };
+
+// In this next line, "state =" is setting state to a default value
 export default (state = filtersReducerDefaultState, action) => {
     switch(action.type) {
         case 'SET_TEXT_FILTER':
