@@ -1,6 +1,7 @@
 import moment from 'moment';
 
 // Get Visible Expenses
+// The second param is destructuring
 export default (expenses, {text, sortBy, startDate, endDate}) => {
     return expenses.filter((expense) => {
         const createdAtMoment = moment(expense.createdAt);
@@ -10,9 +11,11 @@ export default (expenses, {text, sortBy, startDate, endDate}) => {
         return startDateMatch && endDateMatch && textMatch;
     }).sort((a, b) => {
         if(sortBy === 'date'){
+            // If a was created before b
             return a.createdAt < b.createdAt ? 1 : -1;
         }
         else if(sortBy === 'amount'){
+            // If a's amount is less than b's amount
             return a.amount < b.amount ? 1 : -1;
         }
     });
