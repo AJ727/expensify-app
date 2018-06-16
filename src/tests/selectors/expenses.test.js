@@ -1,26 +1,6 @@
 import moment from 'moment';
 import selectExpenses from '../../selectors/expenses';
-
-// valueOf returns a number or timestamp I think
-const expenses = [{
-    id: '1',
-    description: 'Gum',
-    note: '',
-    amount: 195,
-    createdAt: 0
-}, {
-    id: '2',
-    description: 'Rent',
-    note: '',
-    amount: 109500,
-    createdAt: moment(0).subtract(4, 'days').valueOf()
-}, {
-    id: '3',
-    description: 'Credit Card',
-    note: '',
-    amount: 4500,
-    createdAt: moment(0).add(4, 'days').valueOf()
-}]
+import expenses from '../fixtures/expenses';
 
 // Expect anything with e in the description to come back as a result
 test('Should filter by text value', () => {
