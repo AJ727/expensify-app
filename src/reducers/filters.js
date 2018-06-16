@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 // Filters Reducer
-// 'month' limits what gets show to 1 month only
+// 'month' limits what gets shown to 1 month only
 const filtersReducerDefaultState = {
     text: '', 
     sortBy: 'date', 
