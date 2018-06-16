@@ -4,7 +4,7 @@ import uuid from 'uuid';
 export const addExpense = (
     { 
         description = '', 
-        note = ' ', 
+        note = '', 
         amount = 0, 
         createdAt = 0 
     } = {}) => ({
