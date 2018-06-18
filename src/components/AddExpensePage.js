@@ -8,16 +8,31 @@ import {addExpense} from '../actions/expenses';
 // which are createdAt, amount, description, and note
 // dispatch creates the expense and we connect to the react store, showing it to the screen
 // push sends us back to the dashboard
-const AddExpensePage = (props) => (
-    <div>
-        <h1>Add Expense</h1>
-        <ExpenseForm 
-            onSubmit={(expense) => {
-                props.dispatch(addExpense(expense));
-                props.history.push('/');
-            }}
-        />
-    </div>
-);
 
-export default connect()(AddExpensePage);
+// **Changed this from a stateless functional component, to a class based
+// component, in S12L124 (Testing AddExpensePage)***
+export class AddExpensePage extends React.Component{
+    onSubmit = (expense) => {
+        this.props.onSubmit(expense);
+        this.props.history.push('/');
+    };
+    render(){
+        return(
+            <div>
+                <h1>Add Expense</h1>
+                <ExpenseForm 
+                    onSubmit={this.onSubmit}
+                />
+            </div>
+        )
+    }
+}
+
+// Made this to make testing easier, it returns the key onSubmit
+// with the value of dispatch with addExpense
+const mapDispatchToProps = (dispatch) => ({
+    onSubmit : (expense) => dispatch(addExpense(expense))
+});
+
+// We don't need mapStateToProps, so set it as undefined
+export default connect(undefined, mapDispatchToProps)(AddExpensePage);
