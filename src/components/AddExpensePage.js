@@ -13,7 +13,7 @@ import {addExpense} from '../actions/expenses';
 // component, in S12L124 (Testing AddExpensePage)***
 export class AddExpensePage extends React.Component{
     onSubmit = (expense) => {
-        this.props.onSubmit(expense);
+        this.props.addExpense(expense);
         this.props.history.push('/');
     };
     render(){
@@ -28,10 +28,10 @@ export class AddExpensePage extends React.Component{
     }
 }
 
-// Made this to make testing easier, it returns the key onSubmit
+// Made this to make testing easier, it returns the key addExpense
 // with the value of dispatch with addExpense
 const mapDispatchToProps = (dispatch) => ({
-    onSubmit : (expense) => dispatch(addExpense(expense))
+    addExpense : (expense) => dispatch(addExpense(expense))
 });
 
 // We don't need mapStateToProps, so set it as undefined

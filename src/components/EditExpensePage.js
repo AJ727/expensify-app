@@ -4,32 +4,41 @@ import ExpenseForm from './ExpenseForm';
 import {editExpense, removeExpense} from '../actions/expenses';
 
 // editExpense takes two arguments, the id and the updates (expense)
-const EditExpensePage = (props) => {
-    console.log(props);
-    return(
-        <div>
-            <ExpenseForm
-                expense={props.expense}
-                onSubmit={(expense) => {
-                    props.dispatch(editExpense(props.expense.id, expense));
-                    props.history.push('/');
-                    console.log('updated', expense)
-                }}
-           />
-           <button onClick={() => {
-                props.dispatch(removeExpense({ id: props.expense.id }));
-                props.history.push('/');
-            }}>Remove</button>
-        </div>
-    )
+// **Changed this from a stateless functional component, to a class based
+// component, in S12L125 (Testing EditExpensePage)***
+// Also now that it is class-based, props doesn't exist,
+// this.props <-- now the way it's done
+export class EditExpensePage extends React.Component {
+    onSubmit = (expense) => {
+        this.props.editExpense(this.props.expense.id, expense);
+        this.props.history.push('/');
+    };
+    onRemove = () => {
+        this.props.removeExpense({ id: this.props.expense.id });
+        this.props.history.push('/');
+    };
+    render() {
+        return(
+            <div>
+                <ExpenseForm
+                    expense={this.props.expense}
+                    onSubmit={this.onSubmit}
+                />
+                <button onClick={this.onRemove}>Remove</button>
+            </div>
+        );
+    };
 };
 
 // We want to pass in the current expense object
 // We then search the expenses array, to find a matching id 
-const mapStateToProps = (state, props) => {
-    return {
-        expense: state.expenses.find((expense) => expense.id === props.match.params.id)
-    }
-}
+const mapStateToProps = (state, props) => ({
+    expense: state.expenses.find((expense) => expense.id === props.match.params.id)
+});
 
-export default connect(mapStateToProps)(EditExpensePage);
+const mapDispatchToProps = (dispatch, props) => ({
+    editExpense : (id, expense) => dispatch(editExpense(id, expense)),
+    removeExpense: (data) => dispatch(removeExpense(data)) 
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditExpensePage);

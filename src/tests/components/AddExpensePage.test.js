@@ -5,11 +5,11 @@ import expenses from '../fixtures/expenses';
 
 // This beforeEach() block allows use to cut down on lines of code,
 // by running this function before each test case
-let onSubmit, history, wrapper;
+let addExpense, history, wrapper;
 beforeEach(() => {
-    onSubmit = jest.fn();
+    addExpense = jest.fn();
     history = { push: jest.fn() };
-    wrapper = shallow(<AddExpensePage onSubmit={onSubmit} history={history} />);
+    wrapper = shallow(<AddExpensePage addExpense={addExpense} history={history} />);
 });
 
 test('Should render AddExpensePage correctly', () => {
@@ -19,5 +19,5 @@ test('Should render AddExpensePage correctly', () => {
 test('Should handle onSubmit', () => {
     wrapper.find('ExpenseForm').prop('onSubmit')(expenses[1]);
     expect(history.push).toHaveBeenLastCalledWith('/');
-    expect(onSubmit).toHaveBeenLastCalledWith(expenses[1]);
+    expect(addExpense).toHaveBeenLastCalledWith(expenses[1]);
 });
