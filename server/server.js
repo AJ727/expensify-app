@@ -4,6 +4,8 @@ const express = require('express');
 
 const app = express();
 const publicPath = path.join(__dirname, '..', 'public');
+// If the heroku env variable exists, use it, if not, use 3000
+const port = process.env.PORT || 3000;
 
 // Take the return value (a function) and pass it into app.use
 // This serves up all assets from the public folder
@@ -17,6 +19,6 @@ app.get('*', (req, res) => {
 
 // First arg: port number
 // Second arg: callback function
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('server is UP!');
 });
