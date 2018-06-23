@@ -12,5 +12,5 @@ const config = {
 firebase.initializeApp(config);
 
 firebase.database().ref().set({
-    name: 'AJ'
+    name: 'AJ!'
 });
