@@ -8,50 +8,49 @@ firebase.initializeApp(config);
 // Connect to database
 const database = firebase.database();
 
-database.ref('expenses').push({
-    description: 'my first item yeet',
-    note: '1st note neighbor',
-    amount: 123.34,
-    createdAt: 454747
+// child_removed (is an event that fires whenever a child is removed)
+database.ref('expenses').on('child_removed', (snapshot) => {
+    console.log(snapshot.key, snapshot.val());
 });
 
-database.ref('expenses').push({
-    description: 'my second item',
-    note: '2nd note',
-    amount: 213.33,
-    createdAt: 34637474574
+// child_changed (an event that fires whenever a child is changed)
+database.ref('expenses').on('child_changed', (snapshot) => {
+    console.log(snapshot.key, snapshot.val());
 });
 
-database.ref('expenses').push({
-    description: 'third item',
-    note: 'thired note',
-    amount: 214234.34,
-    createdAt: 345345
+// child_added (fires whenever a child gets added)
+database.ref('expenses').on('child_added', (snapshot) => {
+    console.log(snapshot.key, snapshot.val());
 });
 
+// database.ref('expenses').on('value', (snapshot) => {
+//     const expenses = [];
+//     snapshot.forEach((childSnapshot) => {
+//         expenses.push({
+//             id: childSnapshot.key,
+//             ...childSnapshot.val()
+//         });
+//     });
+// });
 
+// database.ref('expenses')
+//     .once('value')
+//     .then((snapshot) => {
+//         const expenses = [];
+//         snapshot.forEach((childSnapshot) => {
+//             expenses.push({
+//                 id: childSnapshot.key,
+//                 ...childSnapshot.val()
+//             });
+//         });
+//     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// database.ref('expenses').push({
+//     description: 'my first item yeet',
+//     note: '1st note neighbor',
+//     amount: 123.34,
+//     createdAt: 454747
+// });
 
 // // .push() creates a new property on our reference
 // database.ref('notes').push({
