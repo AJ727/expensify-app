@@ -8,13 +8,78 @@ firebase.initializeApp(config);
 // Connect to database
 const database = firebase.database();
 
-// 'value' is event type
-const onValueChange = database.ref().on('value', (snapshot) => {
-    const val = snapshot.val();
-    console.log(`${val.name} is a ${val.job.title} at ${val.job.company}`)
-}, (e) => {
-    console.log('Error: ', e);
+database.ref('expenses').push({
+    description: 'my first item yeet',
+    note: '1st note neighbor',
+    amount: 123.34,
+    createdAt: 454747
 });
+
+database.ref('expenses').push({
+    description: 'my second item',
+    note: '2nd note',
+    amount: 213.33,
+    createdAt: 34637474574
+});
+
+database.ref('expenses').push({
+    description: 'third item',
+    note: 'thired note',
+    amount: 214234.34,
+    createdAt: 345345
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // .push() creates a new property on our reference
+// database.ref('notes').push({
+//     title: 'to do',
+//     body: 'runnn'
+// });
+
+// const firebaseNotes = {
+//     notes: {
+//         aeoijfaio: {
+//             title: '1st note',
+//             body: 'the bodyyy'
+//         },
+//         awefeafaef: {
+//             title: '2nd note',
+//             body: 'boeee'
+//         }
+//     }
+// };
+
+
+// // 'value' is event type
+// const onValueChange = database.ref().on('value', (snapshot) => {
+//     const val = snapshot.val();
+//     console.log(`${val.name} is a ${val.job.title} at ${val.job.company}`)
+// }, (e) => {
+//     console.log('Error: ', e);
+// });
 
 // // .on() listens for something over and over again
 // const onValueChange = database.ref().on('value', (snapshot) => {
