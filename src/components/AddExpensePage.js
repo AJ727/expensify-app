@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import ExpenseForm from './ExpenseForm';
-import {addExpense} from '../actions/expenses';
+import {startAddExpense} from '../actions/expenses';
 
 // expense gives us the props from ExpenseForm.js
 // With those props, we call dispatch and pass in the expense with all the props,
@@ -13,7 +13,7 @@ import {addExpense} from '../actions/expenses';
 // component, in S12L124 (Testing AddExpensePage)***
 export class AddExpensePage extends React.Component{
     onSubmit = (expense) => {
-        this.props.addExpense(expense);
+        this.props.startAddExpense(expense);
         this.props.history.push('/');
     };
     render(){
@@ -31,7 +31,7 @@ export class AddExpensePage extends React.Component{
 // Made this to make testing easier, it returns the key addExpense
 // with the value of dispatch with addExpense
 const mapDispatchToProps = (dispatch) => ({
-    addExpense : (expense) => dispatch(addExpense(expense))
+    startAddExpense : (expense) => dispatch(startAddExpense(expense))
 });
 
 // We don't need mapStateToProps, so set it as undefined
