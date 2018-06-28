@@ -1,4 +1,11 @@
-import { addExpense, editExpense, removeExpense } from '../../actions/expenses';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import { startAddExpense, addExpense, editExpense, removeExpense } from '../../actions/expenses';
+import expenses from '../fixtures/expenses';
+import { start } from 'repl';
+
+// Creating config for mock store (passing in middleware)
+const createMockStore = configureMockStore([thunk]);
 
 test('Should set up removeExpense action object', () => {
     const action = removeExpense({id: '123abc'});
@@ -20,32 +27,45 @@ test('Should set up editExpense action object', () => {
 });
 
 test('Should set up addExpense action object with PROVIDED value', () => {
-    const expenseData = {
-        description: 'Rent',
-        amount: 109500,
-        createdAt: 1000,
-        note: 'This was last months rent'
-    }
-    const action = addExpense(expenseData);
+    const action = addExpense(expenses[2]);
     expect(action).toEqual({
         type: 'ADD_EXPENSE',
-        expense: {
-            ...expenseData,
-            id: expect.any(String)
-        }
+        expense: expenses[2]
     });
 });
 
-test('Should set up addExpense action object with DEFAULT values', () => {
-    const action = addExpense();
-    expect(action).toEqual({
-        type: 'ADD_EXPENSE',
-        expense: {
-            id: expect.any(String),
-            description: '',
-            amount: 0,
-            createdAt: 0,
-            note: ''
-        }
-    })
+// Creating a fake redux store and runs an async function
+// Passing in done, tells jest this is asynchronous
+test('Should add expense to database and store', (done) => {
+    const store = createMockStore({});
+    const expenseData = {
+        description: 'Mouse',
+        amount: '3000',
+        note: 'Razer Naga',
+        createdAt: 1000
+    };
+
+    // This returns a promise, which is how we can attach .then()
+    store.dispatch(startAddExpense(expenseData)).then(() => {
+        expect(1).toBe(1);
+        done();
+    });
 });
+
+test('Should add expense with defaults and store', () => {
+
+});
+
+// test('Should set up addExpense action object with DEFAULT values', () => {
+//     const action = addExpense();
+//     expect(action).toEqual({
+//         type: 'ADD_EXPENSE',
+//         expense: {
+//             id: expect.any(String),
+//             description: '',
+//             amount: 0,
+//             createdAt: 0,
+//             note: ''
+//         }
+//     })
+// });
