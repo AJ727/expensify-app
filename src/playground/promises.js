@@ -1,9 +1,9 @@
 const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-        // resolve({
-        //     name: 'aj',
-        //     age: 23
-        // });
+        resolve({
+            name: 'aj',
+            age: 23
+        });
         reject('it went wrong!');
     }, 4500)
 });
@@ -11,8 +11,14 @@ const promise = new Promise((resolve, reject) => {
 console.log('before');
 
 // data is the argument in resolve above resolve(this stuff here)
+// Promise chaining
 promise.then((data) => {
     console.log('1', data);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('my other promise');
+        }, 4500)
+    });
 }).then((str) => {
     console.log(str);
 }).catch((error) => {
@@ -20,5 +26,3 @@ promise.then((data) => {
 });
 
 console.log('after');
-
-// Using promise chaining above
