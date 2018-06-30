@@ -1,5 +1,6 @@
 import React from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 import AddExpensePage from '../components/AddExpensePage';
 import EditExpensePage from '../components/EditExpensePage';
 import ExpenseDashboardPage from '../components/ExpenseDashboardPage';
@@ -15,10 +16,12 @@ import NotFoundPage from '../components/NotFoundPage';
 // <Switch> --> traverses from top to bottom and stops when the correct path is found. If none is found it'll display
 // the last one which is the 404 page
 // :id dynamically matches whatever comes after /edit/ such as /edit/44
+export const history = createHistory();
+
 const AppRouter = () => (
-    <BrowserRouter>
+    <Router history={history}>
         <div>
-            <Header />
+        <Header />
         <Switch>
             <Route path="/" component={LoginPage} exact={true} />
             <Route path="/dashboard" component={ExpenseDashboardPage} />
@@ -28,7 +31,7 @@ const AppRouter = () => (
             <Route component={NotFoundPage} />
         </Switch>
         </div>
-    </BrowserRouter>
+    </Router>
 )
 
 export default AppRouter;
