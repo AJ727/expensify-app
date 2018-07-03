@@ -64,9 +64,8 @@ export default class ExpenseForm extends React.Component {
     // Upon changing, the updater function is called, updating the state
     render() {
         return (
-            <div>
-                {this.state.error && <p>Provide a description and amount!</p>}
-                <form onSubmit={this.onSubmit}>
+                <form className="form" onSubmit={this.onSubmit}>
+                {this.state.error && <p className="form__error">{this.state.error}</p>}
                     <input
                         type="text"
                         placeholder="Description"
@@ -96,9 +95,10 @@ export default class ExpenseForm extends React.Component {
                         onChange={this.onNoteChange}
                         placeholder="Add a note(optional)">
                     </textarea>
-                    <button>Add Expense</button>
+                    <div>
+                        <button className="button">Save Expense</button>
+                    </div>
                 </form>
-            </div>
         )
     }
 }
