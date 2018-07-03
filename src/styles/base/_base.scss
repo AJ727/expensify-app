@@ -1,5 +1,10 @@
 // BEM styling - Block, Element, Modifier
 
+// For all inputs, sets the actual input, no adding of padding and height together
+* {
+    box-sizing: border-box; 
+}
+
 html {
     font-size: 62.5%;
 }
